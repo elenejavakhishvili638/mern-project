@@ -8,3 +8,13 @@
   justify-content: center;
   flex-wrap: wrap;
 }
+
+.no-user h2 {
+  display: flex;
+  justify-content: center;
+}
+
+/* .user-list-container,
+.no-user {
+  margin-top: 5rem;
+} */
