@@ -21,13 +21,13 @@ const MainNavigation = () => {
   return (
     <>
       {sideDrawer && <Backdrop onClick={closeDrawer} />}
-      {sideDrawer && (
-        <SideDrawer>
-          <nav className="drawer-nav">
-            <NavLinks />
-          </nav>
-        </SideDrawer>
-      )}
+      {/* {sideDrawer && (
+      )} */}
+      <SideDrawer show={sideDrawer} onClick={closeDrawer}>
+        <nav className="drawer-nav">
+          <NavLinks onClick={closeDrawer} />
+        </nav>
+      </SideDrawer>
       <MainHeader>
         {/* <button className="main-navigation"></button> */}
         <FaBars className="main-navigation" onClick={openDrawer} />

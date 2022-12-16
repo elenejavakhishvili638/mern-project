@@ -2,22 +2,28 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./navLinks.css";
 
-const NavLinks = () => {
+const NavLinks = ({ onClick }) => {
   return (
     <ul className="nav-links">
       <li className="nav-link">
-        <NavLink to="/" exact>
+        <NavLink to="/" exact onClick={onClick}>
           all users
         </NavLink>
       </li>
       <li className="nav-link">
-        <NavLink to="/u1/places">my places</NavLink>
+        <NavLink to="/u1/places" onClick={onClick}>
+          my places
+        </NavLink>
       </li>
       <li className="nav-link">
-        <NavLink to="/places/new">add places</NavLink>
+        <NavLink to="/places/new" onClick={onClick}>
+          add places
+        </NavLink>
       </li>
       <li className="nav-link">
-        <NavLink to="/auth">authenticate</NavLink>
+        <NavLink to="/auth" onClick={onClick}>
+          authenticate
+        </NavLink>
       </li>
     </ul>
   );
