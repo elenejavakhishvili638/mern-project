@@ -40,8 +40,8 @@
 .place-item-actions button,
 .place-item-actions a {
   margin: 0.5rem;
-  background-color: white;
-  border: 1px solid;
+  /* background-color: white; */
+  /* border: 1px solid; */
 }
 
 /* .place-item__modal-content {
