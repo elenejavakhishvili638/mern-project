@@ -6,7 +6,7 @@ const NavLinks = ({ onClick }) => {
   return (
     <ul className="nav-links">
       <li className="nav-link">
-        <NavLink to="/" exact onClick={onClick}>
+        <NavLink to="/" onClick={onClick} exact="true">
           all users
         </NavLink>
       </li>

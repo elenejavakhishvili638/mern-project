@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./sideDrawer.css";
 import ReactDOM from "react-dom";
 import { CSSTransition } from "react-transition-group";
 
 const SideDrawer = ({ children, show, onClick }) => {
+  const nodeRef = useRef(null);
   const content = (
     <CSSTransition
       in={show}
@@ -11,6 +12,7 @@ const SideDrawer = ({ children, show, onClick }) => {
       classNames="slide-in-left"
       mountOnEnter
       unmountOnExit
+      nodeRef={nodeRef}
     >
       <aside className="side-drawer" onClick={onClick}>
         {children}
