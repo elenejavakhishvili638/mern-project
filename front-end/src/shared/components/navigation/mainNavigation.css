@@ -1,21 +1,22 @@
 .main-navigation {
   width: 3rem;
   height: 3rem;
-  background: transparent;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  /* background: transparent; */
+  /* border: none; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: space-around; */
   margin-right: 2rem;
   cursor: pointer;
+  color: white;
 }
 
-.main-navigation span {
+/* .main-navigation span {
   display: block;
   width: 3rem;
   height: 2.5px;
   background: white;
-}
+} */
 
 .navigation-title {
   color: white;
@@ -30,9 +31,9 @@
   display: none;
 }
 
-/* .main-navigation__drawer-nav {
+.drawer-nav {
   height: 100%;
-} */
+}
 
 @media (min-width: 768px) {
   .main-navigation {
