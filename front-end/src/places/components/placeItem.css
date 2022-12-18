@@ -44,14 +44,18 @@
   /* border: 1px solid; */
 }
 
-/* .place-item__modal-content {
+.place-item-modal-content {
   padding: 0;
 }
 
-.place-item__modal-actions {
+.place-item-modal-actions {
   text-align: right;
 }
-*/
+
+.map-container {
+  height: 20rem;
+  width: 100%;
+}
 
 @media (min-width: 768px) {
   .place-item-image {
