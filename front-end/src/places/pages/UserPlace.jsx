@@ -23,6 +23,7 @@ const DUMMY_PLACES = [
     description: "dajfnsijnfisu",
     imageUrl:
       "https://media.istockphoto.com/id/486334510/photo/new-york-city-skyline.jpg?s=612x612&w=0&k=20&c=RkcUiEmZYarBPnQW8qm7GUJEegE24Molcl2ijMlY3kQ=",
+    address: "20 W 34th St., New York, NY 10001, United States",
     location: {
       lat: 40.7484405,
       lng: -73.9878531,
