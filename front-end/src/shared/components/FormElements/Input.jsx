@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import "./input.css";
 import { validate } from "../../../shared/components/Util/validators.js";
 
@@ -35,10 +35,17 @@ const Input = ({
   row,
   errorText,
   validators,
+  onInput,
 }) => {
   const [state, dispatch] = useReducer(reducer, initailState);
 
   //   console.log(state);
+
+  const { value, isValid } = state;
+
+  useEffect(() => {
+    onInput(id, value, isValid);
+  }, [value, isValid, id, onInput]);
 
   const handleTouch = () => {
     dispatch({ type: "TOUCH" });
