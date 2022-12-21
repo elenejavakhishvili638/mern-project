@@ -2,12 +2,6 @@ import React, { useReducer, useEffect } from "react";
 import "./input.css";
 import { validate } from "../../../shared/components/Util/validators.js";
 
-const initailState = {
-  value: "",
-  isValid: false,
-  isTouch: false,
-};
-
 const reducer = (state, action) => {
   switch (action.type) {
     case "CHANGE":
@@ -26,22 +20,18 @@ const reducer = (state, action) => {
   }
 };
 
-const Input = ({
-  id,
-  label,
-  element,
-  type,
-  placeholder,
-  row,
-  errorText,
-  validators,
-  onInput,
-}) => {
+const Input = (props) => {
+  const initailState = {
+    value: props.initialValue || "",
+    isValid: props.initialValid || false,
+    isTouch: false,
+  };
   const [state, dispatch] = useReducer(reducer, initailState);
 
   //   console.log(state);
 
   const { value, isValid } = state;
+  const { id, onInput } = props;
 
   useEffect(() => {
     onInput(id, value, isValid);
@@ -55,16 +45,16 @@ const Input = ({
     dispatch({
       type: "CHANGE",
       value: event.target.value,
-      validators: validators,
+      validators: props.validators,
     });
   };
 
   const elements =
-    element === "input" ? (
+    props.element === "input" ? (
       <input
         id={id}
-        type={type}
-        placeholder={placeholder}
+        type={props.type}
+        placeholder={props.placeholder}
         onChange={handleChange}
         value={state.value}
         onBlur={handleTouch}
@@ -72,7 +62,7 @@ const Input = ({
     ) : (
       <textarea
         id={id}
-        row={row || 3}
+        row={props.row || 3}
         onChange={handleChange}
         value={state.value}
         onBlur={handleTouch}
@@ -84,9 +74,9 @@ const Input = ({
         !state.isValid && state.isTouch && "form-control--invalid"
       }`}
     >
-      <label htmlFor={id}>{label}</label>
+      <label htmlFor={id}>{props.label}</label>
       {elements}
-      {!state.isValid && state.isTouch && <p>{errorText}</p>}
+      {!state.isValid && state.isTouch && <p>{props.errorText}</p>}
     </div>
   );
 };
