@@ -8,6 +8,7 @@ import {
   VALIDATOR_MINLENGTH,
 } from "../../shared/components/Util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
+import Card from "../../shared/components/UIElements/Card";
 
 const DUMMY_PLACES = [
   {
@@ -60,19 +61,21 @@ const UpdatePlace = () => {
   // console.log(setFormData());
 
   useEffect(() => {
-    setFormData(
-      {
-        title: {
-          value: foundPlace.title,
-          isValid: true,
+    if (foundPlace) {
+      setFormData(
+        {
+          title: {
+            value: foundPlace.title,
+            isValid: true,
+          },
+          description: {
+            value: foundPlace.description,
+            isValid: true,
+          },
         },
-        description: {
-          value: foundPlace.description,
-          isValid: true,
-        },
-      },
-      true
-    );
+        true
+      );
+    }
     setIsLoading(false);
   }, [setFormData, foundPlace]);
 
@@ -84,7 +87,9 @@ const UpdatePlace = () => {
   if (!foundPlace) {
     return (
       <div className="center">
-        <h2>Could not find place!</h2>
+        <Card style={{ background: "white", padding: "10px" }}>
+          <h2>Could not find place!</h2>
+        </Card>
       </div>
     );
   }
