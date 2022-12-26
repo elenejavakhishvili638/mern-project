@@ -4,8 +4,10 @@ import Card from "../../shared/components/UIElements/Card";
 import Modal from "../../shared/components/UIElements/Modal";
 import Map from "../../shared/components/UIElements/Map";
 import "./placeItem.css";
+import { useAuthContext } from "../../shared/context/auth-context";
 
 const PlaceItem = ({ item }) => {
+  const { isLoggedIn } = useAuthContext();
   const [map, setMap] = useState(false);
   const { id, imageUrl, title, description, address, creator, location } = item;
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -81,10 +83,14 @@ const PlaceItem = ({ item }) => {
             <Button inverse onClick={openMap}>
               VIEW ON MAP
             </Button>
-            <Button to={`/places/${id}`}>EDIT</Button>
-            <Button danger onClick={showDeleteWarningHandler}>
-              DELETE
-            </Button>
+            {isLoggedIn && (
+              <>
+                <Button to={`/places/${id}`}>EDIT</Button>
+                <Button danger onClick={showDeleteWarningHandler}>
+                  DELETE
+                </Button>
+              </>
+            )}
           </div>
         </Card>
       </li>

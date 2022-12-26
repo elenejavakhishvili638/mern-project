@@ -36,7 +36,7 @@ const MainNavigation = () => {
           <span></span> */}
 
         <h1 className="navigation-title">
-          <Link to="/places/new">Your Places</Link>
+          <Link to="/">Your Places</Link>
         </h1>
         <nav className="nav">
           <NavLinks />
