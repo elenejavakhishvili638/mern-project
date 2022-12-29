@@ -5,12 +5,16 @@ const HttpError = require("./models/http-error");
 //middleware
 const placesRoutes = require("./routes/places-routes");
 
+const usersRoutes = require("./routes/users-routes");
+
 const app = express();
 
 app.use(bodyParser.json());
 
 //if request starts with /api/places we have to make it only on this route, we have to add a filter
 app.use("/api/places", placesRoutes);
+
+app.use("/api/users", usersRoutes);
 
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route", 404);
