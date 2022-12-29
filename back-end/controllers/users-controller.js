@@ -5,12 +5,8 @@ const DUMMY_USERS = [
   {
     id: "u1",
     name: "Elo",
-    places: 5,
-  },
-  {
-    id: "u2",
-    name: "El0o",
-    places: 9,
+    email: "test@test.com",
+    password: "testers",
   },
 ];
 
@@ -22,22 +18,38 @@ const getUsers = (req, res, next) => {
 };
 
 const signupUsers = (req, res, next) => {
-  const { name, places } = req.body;
+  const { name, email, password } = req.body;
+
+  const hasUser = DUMMY_USERS.find((item) => item.email === email);
+  if (hasUser) {
+    throw new HttpError("Could not create user, email aleady exists", 422);
+  }
 
   const newUser = {
     id: uuidv4(),
     name,
-    places,
+    email,
+    password,
   };
 
   DUMMY_USERS.push(newUser);
 
-  res.status(202).json({ user: newUser });
+  res.status(201).json({ user: newUser });
 };
 
-// const loginUsers = (req, res, next) => {
+const loginUsers = (req, res, next) => {
+  const { email, password } = req.body;
 
-// };
+  const foundUser = DUMMY_USERS.find((item) => item.email === email);
+  if (!foundUser || foundUser.password !== password) {
+    throw new HttpError(
+      "Could not identify user, credentials seem to be wrong",
+      401
+    );
+  }
+
+  res.json({ message: "Logged in" });
+};
 
 exports.getUsers = getUsers;
 exports.signupUsers = signupUsers;
