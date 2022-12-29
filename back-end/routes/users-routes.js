@@ -12,16 +12,12 @@ router.post(
   "/signup",
   [
     check("name").not().isEmpty(),
-    check("email").isEmail(),
+    check("email").normalizeEmail().isEmail(),
     check("password").isLength({ min: 5 }),
   ],
   usersContorller.signupUsers
 );
 
-router.post(
-  "/login",
-  [check("email").isEmail(), check("password").isLength({ min: 5 })],
-  usersContorller.loginUsers
-);
+router.post("/login", usersContorller.loginUsers);
 
 module.exports = router;

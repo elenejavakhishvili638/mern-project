@@ -95,6 +95,10 @@ const patchPlace = (req, res, next) => {
 const deletePlace = (req, res, next) => {
   const placeId = req.params.pid;
 
+  if (!DUMMY_PLACES.find((item) => item.id === placeId)) {
+    throw new HttpError("Could not find a place for that id", 404);
+  }
+
   const place = DUMMY_PLACES.filter((item) => {
     return item.id !== placeId;
   });
