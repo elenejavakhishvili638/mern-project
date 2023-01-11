@@ -65,7 +65,7 @@ const signupUsers = async (req, res, next) => {
     email,
     password,
     image: "ooo",
-    places: req.body.places,
+    places: [],
   });
 
   try {
