@@ -68,19 +68,33 @@ const signupUsers = async (req, res, next) => {
   res.status(201).json({ user: newUser.toObject({ getters: true }) });
 };
 
-const loginUsers = (req, res, next) => {
+const loginUsers = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.log(errors);
-    throw new HttpError("Invalid inputs passed, please check your data.", 422);
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
   }
   const { email, password } = req.body;
 
-  const foundUser = DUMMY_USERS.find((item) => item.email === email);
+  let foundUser;
+  try {
+    foundUser = await User.findOne({ email: email });
+  } catch (err) {
+    const error = new HttpError(
+      "Logging in failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
+
   if (!foundUser || foundUser.password !== password) {
-    throw new HttpError(
-      "Could not identify user, credentials seem to be wrong",
-      401
+    return next(
+      new HttpError(
+        "Could not identify user, credentials seem to be wrong",
+        401
+      )
     );
   }
 
