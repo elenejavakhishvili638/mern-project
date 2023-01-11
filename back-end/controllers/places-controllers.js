@@ -1,4 +1,3 @@
-const { v4: uuidv4 } = require("uuid");
 const { validationResult } = require("express-validator");
 const mongoose = require("mongoose");
 
@@ -49,9 +48,7 @@ const getPlacesByUserId = async (req, res, next) => {
       "Could not find a places for the provided user id.",
       404
     );
-    // error.code = 404;
     return next(error);
-    // throw error;
   }
   res.json({
     places: places.map((place) => place.toObject({ getters: true })),
@@ -157,7 +154,7 @@ const deletePlace = async (req, res, next) => {
 
   let place;
   try {
-    //you can use populate when there is a relation
+    //you can use populate when there is a relation, to get excess to document that is stored in a different collection
     place = await Place.findById(placeId).populate("creator");
   } catch (err) {
     const error = new HttpError(
