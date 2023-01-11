@@ -75,6 +75,7 @@ const signupUsers = async (req, res, next) => {
       "Something went wrong, please try again later.",
       500
     );
+    return next(error);
   }
 
   res.status(201).json({ user: newUser.toObject({ getters: true }) });
