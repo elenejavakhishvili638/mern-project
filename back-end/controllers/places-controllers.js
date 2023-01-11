@@ -112,8 +112,6 @@ const createPlace = async (req, res, next) => {
     return next(error);
   }
 
-  // DUMMY_PLACES.push(createdPlace);
-
   res.status(201).json({ place: createdPlace });
 };
 
@@ -138,13 +136,8 @@ const patchPlace = async (req, res, next) => {
     );
     return next(error);
   }
-
-  //   console.log(patchedPlace);
-  // const placeIndex = DUMMY_PLACES.findIndex((item) => item.id === placeId);
   patchedPlace.title = title;
   patchedPlace.description = description;
-
-  // DUMMY_PLACES[placeIndex] = patchedPlace;
 
   try {
     await patchedPlace.save();
@@ -164,7 +157,8 @@ const deletePlace = async (req, res, next) => {
 
   let place;
   try {
-    place = await Place.findById(placeId);
+    //you can use populate when there is a relation
+    place = await Place.findById(placeId).populate("creator");
   } catch (err) {
     const error = new HttpError(
       "Somthing went wrong, could not find place.",
@@ -173,8 +167,18 @@ const deletePlace = async (req, res, next) => {
     return next(error);
   }
 
+  if (!place) {
+    const error = new HttpError("Could not find a place for this id.", 404);
+    return next(error);
+  }
+
   try {
-    await place.remove();
+    const session = await mongoose.startSession();
+    session.startTransaction();
+    await place.remove({ session: session });
+    place.creator.places.pull(place);
+    await place.creator.save({ session: session });
+    await session.commitTransaction();
   } catch (err) {
     const error = new HttpError(
       "Somthing went wrong, could not find place.",
