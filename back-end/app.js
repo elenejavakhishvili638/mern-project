@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 const HttpError = require("./models/http-error");
 
 //middleware
@@ -31,4 +32,15 @@ app.use((error, req, res, next) => {
     .json({ message: error.message || "An unknown error occured!" });
 });
 
-app.listen(5000);
+mongoose
+  .connect(
+    "mongodb+srv://user_elene:m68LvWVz65q90Xbg@cluster0.sv8ujol.mongodb.net/places?retryWrites=true&w=majority"
+  )
+  .then(() => {
+    app.listen(8080);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+// m68LvWVz65q90Xbg
